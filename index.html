@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RecoverPro — Stop Losing Revenue on Declined Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #1B2A4A;
+  --navy-light: #243656;
+  --green: #1A7F45;
+  --green-light: #E6F4EC;
+  --green-bright: #22C55E;
+  --warm: #FAF9F6;
+  --warm-mid: #F0EEEA;
+  --text: #1E1E1E;
+  --text-mid: #4A4A4A;
+  --text-light: #7A7A7A;
+  --red-soft: #E8453C;
+  --red-bg: #FEF2F1;
+  --border: #E5E2DC;
+  --radius: 10px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); background: white; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Nav ─────────────────────────────── */
+nav { padding: 18px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); z-index: 100; }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+.logo span { color: var(--green); }
+nav a { font-size: 14px; color: var(--text-mid); text-decoration: none; margin-left: 32px; font-weight: 500; }
+nav a:hover { color: var(--text); }
+.nav-cta { background: var(--navy); color: white !important; padding: 9px 20px; border-radius: 8px; font-weight: 500; }
+.nav-cta:hover { background: var(--navy-light) !important; }
+.nav-links { display: flex; align-items: center; }
+
+/* ── Hero ─────────────────────────────── */
+.hero { padding: 80px 0 60px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center; }
+.hero-eyebrow { font-size: 13px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+.hero h1 { font-size: 46px; font-weight: 700; line-height: 1.12; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 20px; }
+.hero h1 em { font-style: normal; color: var(--red-soft); text-decoration: underline; text-decoration-color: #f5c6c2; text-underline-offset: 4px; }
+.hero p { font-size: 18px; color: var(--text-mid); line-height: 1.7; margin-bottom: 32px; max-width: 520px; }
+.hero-actions { display: flex; gap: 12px; align-items: center; }
+.btn { display: inline-block; padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.btn-primary { background: var(--green); color: white; }
+.btn-primary:hover { background: #15693a; }
+.btn-outline { background: transparent; color: var(--text-mid); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--text-mid); color: var(--text); }
+
+/* Hero Calculator */
+.hero-calc { background: var(--navy); border-radius: 16px; padding: 32px; color: white; }
+.calc-label { font-size: 13px; font-weight: 500; color: #94A3B8; margin-bottom: 8px; }
+.calc-input-wrap { position: relative; margin-bottom: 20px; }
+.calc-input { width: 100%; padding: 14px 16px; font-size: 20px; font-weight: 600; font-family: inherit; border: 1.5px solid #3D5176; border-radius: 10px; background: #243656; color: white; outline: none; }
+.calc-input:focus { border-color: var(--green-bright); }
+.calc-input::placeholder { color: #5A7099; }
+.calc-suffix { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 13px; color: #5A7099; }
+.calc-divider { border: none; border-top: 1px solid #3D5176; margin: 20px 0; }
+.calc-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.calc-row-label { font-size: 14px; color: #94A3B8; }
+.calc-row-value { font-size: 14px; font-weight: 600; }
+.calc-row-value.red { color: #F87171; }
+.calc-big { font-size: 36px; font-weight: 700; color: var(--green-bright); letter-spacing: -0.02em; }
+.calc-big-label { font-size: 12px; color: #94A3B8; margin-top: 4px; }
+.calc-roi { display: inline-block; background: rgba(34, 197, 94, 0.15); color: var(--green-bright); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 12px; }
+
+/* ── Problem ──────────────────────────── */
+.problem { padding: 70px 0; background: var(--warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); margin-bottom: 12px; }
+.section-title { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); margin-bottom: 12px; line-height: 1.2; }
+.section-sub { font-size: 17px; color: var(--text-mid); max-width: 600px; margin-bottom: 40px; }
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.problem-card { background: white; border-radius: 12px; padding: 28px 24px; border: 1px solid var(--border); }
+.problem-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 20px; }
+.problem-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--navy); }
+.problem-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+/* ── How It Works ─────────────────────── */
+.how { padding: 70px 0; }
+.how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.how-steps { display: flex; flex-direction: column; gap: 24px; }
+.how-step { display: flex; gap: 16px; align-items: flex-start; }
+.step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--green-light); color: var(--green); font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step-content h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.step-content p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+.how-visual { background: var(--navy); border-radius: 16px; padding: 32px; color: white; }
+.msg-preview { background: #243656; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+.msg-from { font-size: 11px; color: #5A7099; margin-bottom: 8px; font-weight: 500; }
+.msg-bubble { background: #DCF8C6; color: #1a1a2e; padding: 12px 16px; border-radius: 16px 16px 4px 16px; font-size: 14px; line-height: 1.5; max-width: 90%; margin-left: auto; }
+.msg-reply { background: white; color: #1a1a2e; padding: 10px 14px; border-radius: 4px 16px 16px 16px; font-size: 14px; max-width: 60%; margin-top: 8px; }
+.msg-label { font-size: 11px; color: #5A7099; margin-top: 6px; text-align: right; }
+.call-preview { background: #243656; border-radius: 12px; padding: 20px; text-align: center; }
+.call-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--green); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.call-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.call-status { font-size: 12px; color: var(--green-bright); }
+.call-transcript { text-align: left; margin-top: 14px; padding-top: 14px; border-top: 1px solid #3D5176; font-size: 13px; color: #94A3B8; line-height: 1.7; font-style: italic; }
+
+/* ── Numbers / Social Proof ───────────── */
+.numbers { padding: 60px 0; background: var(--green-light); border-top: 1px solid #c8e5d4; border-bottom: 1px solid #c8e5d4; }
+.numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: center; }
+.num-value { font-size: 40px; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
+.num-label { font-size: 13px; color: var(--text-mid); margin-top: 4px; }
+
+/* ── Pricing ──────────────────────────── */
+.pricing { padding: 70px 0; }
+.pricing-card { max-width: 520px; margin: 0 auto; background: white; border: 2px solid var(--navy); border-radius: 16px; overflow: hidden; }
+.pricing-header { background: var(--navy); padding: 28px 32px; color: white; }
+.pricing-header h3 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.pricing-header p { font-size: 14px; color: #94A3B8; }
+.pricing-body { padding: 28px 32px; }
+.pricing-amount { display: flex; align-items: baseline; gap: 4px; margin-bottom: 6px; }
+.pricing-amount span:first-child { font-size: 42px; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+.pricing-amount span:last-child { font-size: 15px; color: var(--text-light); }
+.pricing-note { font-size: 14px; color: var(--text-mid); margin-bottom: 24px; }
+.pricing-features { list-style: none; margin-bottom: 28px; }
+.pricing-features li { font-size: 14px; color: var(--text-mid); padding: 8px 0; border-bottom: 1px solid var(--warm-mid); display: flex; align-items: center; gap: 10px; }
+.pricing-features li::before { content: "✓"; color: var(--green); font-weight: 700; font-size: 14px; }
+.pricing-cta { width: 100%; padding: 14px; text-align: center; }
+.pricing-guarantee { text-align: center; margin-top: 16px; font-size: 13px; color: var(--text-light); }
+
+/* ── CTA ──────────────────────────────── */
+.final-cta { padding: 80px 0; background: var(--navy); color: white; text-align: center; }
+.final-cta h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+.final-cta p { font-size: 17px; color: #94A3B8; max-width: 520px; margin: 0 auto 32px; }
+.final-cta .btn-primary { background: var(--green-bright); color: #064E20; font-size: 16px; padding: 16px 36px; }
+.final-cta .btn-primary:hover { background: #16A34A; color: white; }
+
+/* ── Footer ───────────────────────────── */
+footer { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--text-light); }
+
+/* ── Mobile ───────────────────────────── */
+@media (max-width: 768px) {
+  .hero-grid, .how-grid { grid-template-columns: 1fr; gap: 32px; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .numbers-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .hero h1 { font-size: 32px; }
+  .section-title { font-size: 26px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { padding: 48px 0 40px; }
+  .hero-calc { order: -1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="container">
+    <div class="logo">Recover<span>Pro</span></div>
+    <div class="nav-links">
+      <a href="#problem">The Problem</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#cta" class="nav-cta">Book a Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">For Independent Auto Repair Shops</div>
+        <h1>Your customers need the work. Your techs already found it. <em>Nobody follows up.</em></h1>
+        <p>RecoverPro automatically follows up on declined repair work with personalized AI texts and phone calls — recovering revenue your shop already earned but never collected. Works with any shop management system.</p>
+        <div class="hero-actions">
+          <a href="#cta" class="btn btn-primary">See My Revenue →</a>
+          <a href="#how" class="btn btn-outline">How It Works</a>
+        </div>
+      </div>
+
+      <!-- Live Calculator -->
+      <div class="hero-calc">
+        <div class="calc-label">How much are you leaving on the table?</div>
+        <div class="calc-input-wrap">
+          <input type="number" class="calc-input" id="carCount" value="140" placeholder="140" min="1" max="1000">
+          <span class="calc-suffix">cars / month</span>
+        </div>
+        <hr class="calc-divider">
+        <div class="calc-row">
+          <span class="calc-row-label">Avg repair order</span>
+          <span class="calc-row-value">$500</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-row-label">Declined rate (industry avg)</span>
+          <span class="calc-row-value">35%</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-row-label">Monthly declined revenue</span>
+          <span class="calc-row-value red" id="declinedTotal">$24,500</span>
+        </div>
+        <hr class="calc-divider">
+        <div class="calc-big" id="recoveryTotal">$3,675</div>
+        <div class="calc-big-label">estimated monthly recovery at 15% win-back</div>
+        <div class="calc-roi" id="roiLabel">5.7x return on investment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Platforms -->
+<section style="padding: 32px 0; border-top: 1px solid var(--border);">
+  <div class="container" style="text-align: center;">
+    <div style="font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); margin-bottom: 16px;">Works with the shop management system you already use</div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap;">
+      <span style="font-size: 17px; font-weight: 600; color: var(--navy); opacity: 0.7;">Tekmetric</span>
+      <span style="font-size: 17px; font-weight: 600; color: var(--navy); opacity: 0.7;">Shop-Ware</span>
+      <span style="font-size: 17px; font-weight: 600; color: var(--navy); opacity: 0.7;">Mitchell1</span>
+      <span style="font-size: 17px; font-weight: 600; color: var(--navy); opacity: 0.7;">Shopmonkey</span>
+      <span style="font-size: 17px; font-weight: 600; color: var(--navy); opacity: 0.7;">AutoFluent</span>
+      <span style="font-size: 15px; font-weight: 500; color: var(--green);">+ any platform via CSV</span>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="section-eyebrow">The problem</div>
+    <div class="section-title">30–50% of recommended work gets declined. Zero percent gets followed up.</div>
+    <div class="section-sub">Your tech found it. Your advisor recommended it. The customer said "not today." Then nothing happens. The work sits in your system and the revenue disappears.</div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon" style="background: var(--red-bg);">📞</div>
+        <h3>Your advisor can't make the calls</h3>
+        <p>They're answering the phone, checking in walk-ins, ordering parts, and managing the counter. Following up on last month's declined work isn't happening — not because they don't care, but because there's no time.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon" style="background: #FEF3C7;">💬</div>
+        <h3>Generic reminders get ignored</h3>
+        <p>"Time for your next service" texts are noise. They don't reference the specific work that was declined, don't explain why it matters, and don't give the customer a reason to act now.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon" style="background: var(--green-light);">💰</div>
+        <h3>The car still needs the work</h3>
+        <p>Those brake pads are still at 2mm. That timing belt is still at 98k miles. The work is real, the need is real, and the customer just needs someone to remind them before it becomes an emergency — or they go somewhere else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-eyebrow">How it works</div>
+    <div class="section-title" style="margin-bottom: 40px;">We make the follow-up your advisor can't.</div>
+    <div class="how-grid">
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>We connect to your shop system</h3>
+            <p>RecoverPro integrates with the platforms you already use — Tekmetric, Shop-Ware, Mitchell1, AutoFluent, Shopmonkey, and more. We pull every repair order and identify every declined job — what was recommended, the dollar amount, and the tech's notes on why it matters. Don't see your system? We're platform agnostic and can work with any shop management software.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>AI sends a personal follow-up</h3>
+            <p>Not a generic reminder. A message that references the customer's name, their specific vehicle, and the exact work that was declined — written in plain language, not mechanic jargon.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Text or phone call — we pick the right one</h3>
+            <p>Standard maintenance gets a text. Safety-critical or high-value work gets an AI phone call that sounds like your best service advisor — warm, knowledgeable, and never pushy.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Customer replies → appointment booked</h3>
+            <p>When the customer says yes, the system books the return visit. You don't lift a finger until the car shows up. The dashboard shows you exactly how much revenue came back.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual: Message + Call Preview -->
+      <div class="how-visual">
+        <div class="msg-preview">
+          <div class="msg-from">SMS Follow-Up — sent automatically</div>
+          <div class="msg-bubble">Hi Maria, this is Dallas Auto. When your Civic was in last month, our tech found your front brake pads are getting low — waiting too long can lead to rotor damage and a much bigger repair. We can take care of it for $389 this week. Reply YES to schedule.</div>
+          <div class="msg-reply">Yes please, Thursday works!</div>
+          <div class="msg-label">Appointment booked · $389 recovered</div>
+        </div>
+        <div class="call-preview">
+          <div class="call-avatar">📱</div>
+          <div class="call-name">AI Voice Call — safety item</div>
+          <div class="call-status">● Connected · 1:24</div>
+          <div class="call-transcript">"Hi Patricia, this is calling from Dallas Auto Care — I'm reaching out about your F-150. When it was in last time, our technician found the rear brake rotors are worn below the safe minimum. I wanted to make sure you knew, because that can affect your stopping distance. Would you like to get that taken care of this week?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Numbers -->
+<section class="numbers">
+  <div class="container">
+    <div class="numbers-grid">
+      <div>
+        <div class="num-value">$22K+</div>
+        <div class="num-label">Average monthly declined work per shop</div>
+      </div>
+      <div>
+        <div class="num-value">0%</div>
+        <div class="num-label">Of declined work that gets followed up today</div>
+      </div>
+      <div>
+        <div class="num-value">15%</div>
+        <div class="num-label">Win-back rate with personalized follow-up</div>
+      </div>
+      <div>
+        <div class="num-value">4–6x</div>
+        <div class="num-label">Return on your monthly subscription</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <div class="section-eyebrow">Simple pricing</div>
+      <div class="section-title">Pay less than one brake job. Recover dozens.</div>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <h3>RecoverPro for your shop</h3>
+        <p>Everything you need to start recovering declined work revenue</p>
+      </div>
+      <div class="pricing-body">
+        <div class="pricing-amount">
+          <span>$650</span>
+          <span>/ month</span>
+        </div>
+        <div class="pricing-note">No setup fee. No long-term contract. Cancel anytime.</div>
+        <ul class="pricing-features">
+          <li>Integrates with Tekmetric, Shop-Ware, Mitchell1, and more</li>
+          <li>AI-powered personalized SMS follow-ups</li>
+          <li>AI voice agent for high-value and safety-critical jobs</li>
+          <li>Smart routing — text or call based on urgency and value</li>
+          <li>Handles customer replies and books appointments</li>
+          <li>Shop owner dashboard with real-time ROI tracking</li>
+          <li>TCPA-compliant opt-out handling</li>
+        </ul>
+        <a href="#cta" class="btn btn-primary pricing-cta">Start My Free Pilot →</a>
+      </div>
+    </div>
+    <div class="pricing-guarantee">Start with a free 2-week pilot on your real data. See your numbers before you pay anything.</div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta" id="cta">
+  <div class="container">
+    <h2>See how much revenue is sitting in your system right now.</h2>
+    <p>We'll connect to your shop management system, show you the exact dollar amount of declined work sitting in your system, and run a free pilot on your real customers. No commitment. No setup fee. Just the numbers.</p>
+    <a href="mailto:daniel@recoverpro.com?subject=I want to see my declined work numbers" class="btn btn-primary">Book My Free Demo →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    © 2026 RecoverPro. Built for independent shops that refuse to leave money on the table.
+  </div>
+</footer>
+
+<script>
+const carInput = document.getElementById('carCount');
+const declinedEl = document.getElementById('declinedTotal');
+const recoveryEl = document.getElementById('recoveryTotal');
+const roiEl = document.getElementById('roiLabel');
+
+function calc() {
+  const cars = parseInt(carInput.value) || 0;
+  const avgRO = 500;
+  const declineRate = 0.35;
+  const winBack = 0.15;
+  const cost = 650;
+
+  const declined = cars * avgRO * declineRate;
+  const recovered = declined * winBack;
+  const roi = recovered / cost;
+
+  declinedEl.textContent = '$' + Math.round(declined).toLocaleString();
+  recoveryEl.textContent = '$' + Math.round(recovered).toLocaleString();
+  roiEl.textContent = roi.toFixed(1) + 'x return on investment';
+}
+
+carInput.addEventListener('input', calc);
+calc();
+</script>
+
+</body>
+</html>
